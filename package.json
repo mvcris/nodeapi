@@ -1,0 +1,23 @@
+{
+  "name": "rest-api-base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Cristiano Mattos Veiga",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.1",
+    "helmet": "^3.8.2",
+    "morgan": "^1.9.0",
+    "sequelize": "^4.13.8"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^3.0.0"
+  }
+}
