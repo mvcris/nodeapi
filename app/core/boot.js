@@ -1,8 +1,5 @@
-//Importando todas as libs que serao usadas na api
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
+//Importando arquivos que serao necessarios para funcionalidade do boot
+const Middelwares = require('./middlewares');
 const fs = require('fs');
 
 //Importando models do sequelize
@@ -11,30 +8,17 @@ const models = require('../models');
 //Carregando objeto com parametros de configuracoes
 const config = require('../config/config');
 
-
-class boot{
+/*
+Classe: boot
+Funcionalidade: Realizar a inicializacao da api carregando todas suas configuracoes
+*/
+class boot extends Middelwares{
 
 	constructor(app)
 	{
-		this.loadMiddlewares(app);
+		super(app);
 		this.listenApp(app);
 		this.loadRoutes(app);
-	}
-
-	/*
-	Metodo: loadMiddlewares
-	Funcionalidade: Realizar o uso de todos os middlewares que serao usados na API
-	Parametros: app (Object express) -> Uma instancia do app do express
-	TODO: Mover para um arquivo separado, dependendo do tamanho da aplicacao pode
-	acabar poluindo a classe com o numero de configuracoes
-	*/
-	loadMiddlewares(app)
-	{
-		app.use(bodyParser.json());
-		app.use(bodyParser.urlencoded({extended: true}));
-		app.use(cors());
-		app.use(helmet());
-		app.use(morgan('tiny'))
 	}
 
 	/*
@@ -66,7 +50,7 @@ class boot{
 		//Quando estabalecer uma conexao com o mysql sincronizar as tabelas antes de iniciar o servidor
 		models.sequelize.sync().then(() => {
 			app.listen(config.api.port, () => {
-				console.log('Servidor online na porta 3000');
+				console.log('Servidor online na porta '+config.api.port);
 			})
 		})
 	}
