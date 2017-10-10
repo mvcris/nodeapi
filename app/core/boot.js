@@ -6,7 +6,10 @@ const morgan = require('morgan');
 const fs = require('fs');
 
 //Importando models do sequelize
-const models = require('../app/models');
+const models = require('../models');
+
+//Carregando objeto com parametros de configuracoes
+const config = require('../config/config');
 
 
 class boot{
@@ -43,7 +46,7 @@ class boot{
 	{
 		fs.readdirSync('./app/routes/').forEach(file => {
 			let newFileName = file.replace('.js', '');
-			let fileRequire = require('../app/routes/'+newFileName);
+			let fileRequire = require('../routes/'+newFileName);
 			let routeName = newFileName.replace('Router', '');
 			if(routeName == 'home'){
 				app.use('/', fileRequire);
@@ -62,7 +65,7 @@ class boot{
 	{
 		//Quando estabalecer uma conexao com o mysql sincronizar as tabelas antes de iniciar o servidor
 		models.sequelize.sync().then(() => {
-			app.listen(3000, () => {
+			app.listen(config.api.port, () => {
 				console.log('Servidor online na porta 3000');
 			})
 		})

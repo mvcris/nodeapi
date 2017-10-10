@@ -5,13 +5,14 @@
 var fs        = require('fs');
 var path      = require('path');
 var Sequelize = require('sequelize');
+const config = require('../config/config');
 var basename  = path.basename(__filename);
 var db        = {};
 
-var sequelize = new Sequelize('dbapi', 'root', 'root', {
-   host: "127.0.0.1",
-    port: 8889,
-    dialect: 'mysql'
+var sequelize = new Sequelize(config.db.database, config.db.username, config.db.password, {
+   host: config.db.host,
+    port: config.db.port,
+    dialect: config.db.dialect
 });
 
 fs

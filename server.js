@@ -1,5 +1,5 @@
 const express = require('express');
-const Boot = require('./core/boot');
+const Boot = require('./app/core/boot');
 
 const app = express();
 
